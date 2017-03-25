@@ -13,5 +13,9 @@
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "twitter": "^1.7.0"
   }
 }
