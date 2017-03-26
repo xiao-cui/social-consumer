@@ -3,10 +3,10 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  script(src='/socket.io/socket.io.js')
-    script.
-      console.log('test');
-      var socket = io('//localhost:3000');
-      socket.on('socketToMe',function(data){
-          console.log(data);
-      });
+  script(src="/socket.io/socket.io.js")
+  script.
+    //var socket = io('//'+document.location.hostname+':'+document.location.port);
+    var socket = io('//localhost:3000');
+    socket.on('socketToMe',function(data){
+        console.log(data);
+    });
