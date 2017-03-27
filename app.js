@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var Twitter = require('twitter');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -61,6 +62,33 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+io.on('connection',function(socket){
+  console.log('start connection');
+  socket.on('start tweets',function(){
+	  console.log('start tweets');
+	  var client = new Twitter({
+		  consumer_key: 'ax33Nwa0VDmxsEsuugeCkjREJ',
+		  consumer_secret: 'TXlOuqt2xuyna9vkRUav5V2ZtHeZkHXHJsyfauF9Ul3Kfzm9FA',
+		  access_token_key: '845579042254286848-7UzWDvVQHVqzj2GDJpH19x3trQ8EQe6',
+		  access_token_secret: 's1YEEdEBJ1rzKwbPE6t3iqR3SEJfVvlxHP33mSlwFSsZm',
+	  });
 
+	  var params = {
+		  user_id: 845579042254286848,
+		  screen_name: 'ecrosslink_au',
+		  count: 10
+	  };
+
+	  console.log('start call twitter api');
+	  console.log(client);
+	  client.get('statuses/user_timeline', params, function(error, tweets, response) {
+	    console.log(error);
+		  if(error) throw error;
+		  console.log(tweets);
+	  });
+  });
+
+  socket.emit('connected');
+});
 
 module.exports = {app: app, server: server};
